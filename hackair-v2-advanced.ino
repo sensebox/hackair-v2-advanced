@@ -256,6 +256,10 @@ void loop() {
     dataJson += data.pm25;
     dataJson += "\",\"PM10_AirPollutantValue\":\"";
     dataJson += data.pm10;
+    dataJson += "\",\"DHT22_TemperatureValue\":\"";
+    dataJson += env_temp;
+    dataJson += "\",\"DHT22_HumidityValue\":\"";
+    dataJson += env_hum;
     dataJson += "\"},\"battery\":\"";
     dataJson += vdd;
     dataJson += "\",\"tamper\":\"";
