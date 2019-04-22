@@ -256,10 +256,6 @@ void loop() {
     dataJson += data.pm25;
     dataJson += "\",\"PM10_AirPollutantValue\":\"";
     dataJson += data.pm10;
-    dataJson += "\",\"DHT22_TemperatureValue\":\"";
-    dataJson += env_temp;
-    dataJson += "\",\"DHT22_HumidityValue\":\"";
-    dataJson += env_hum;
     dataJson += "\"},\"battery\":\"";
     dataJson += vdd;
     dataJson += "\",\"tamper\":\"";
@@ -320,6 +316,23 @@ void loop() {
 
   // Send data to openSenseMap
   if ( sensebox_id != "" && osem_token != "") {
+
+    String dataJson = "{\"reading\":{\"PM2.5_AirPollutantValue\":\"";
+      dataJson += data.pm25;
+      dataJson += "\",\"PM10_AirPollutantValue\":\"";
+      dataJson += data.pm10;
+      dataJson += "\",\"Temperature_Value\":\"";
+      dataJson += env_temp;
+      dataJson += "\",\"Humidity_Value\":\"";
+      dataJson += env_hum;
+      dataJson += "\"},\"battery\":\"";
+      dataJson += vdd;
+      dataJson += "\",\"tamper\":\"";
+      dataJson += "0";
+      dataJson += "\",\"error\":\"";
+      dataJson += data.error;
+      dataJson += "\"}";
+
     // Send the data to the openSenseMap server
     Serial.println("Sending data to openSenseMap platform...");
     Serial.println(sensebox_id);
@@ -327,8 +340,8 @@ void loop() {
     Serial.println(osem_token);
     Serial.println("\nEND\n");
     
-    if (client.connect("api.opensensemap.org", 443)) {
-      Serial.println("Connected to api.opensensemap.org");
+    if (client.connect("api.testing.opensensemap.org", 443)) {
+      Serial.println("Connected to api.testing.opensensemap.org");
       client.print("POST /boxes/");
       client.print(sensebox_id);
       client.print("/data?hackair=true HTTP/1.1\r\n");
